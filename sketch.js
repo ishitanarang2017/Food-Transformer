@@ -12,6 +12,7 @@ var gameState = "onSling";
 
 function preload() {
     getBg();
+    pizza=loadImage("sprites/pizza.jpg")
 
 }
 
@@ -58,8 +59,10 @@ function draw(){
     text("score: "+score,width-300,50);
     Engine.update(engine);
     //strokeWeight(4);
-    
-    
+    collide(bird,pig1);
+    collide(bird,pig3);
+    collide(bird,box4);
+
     ground.display();
     pig1.display();
     log1.display();
@@ -111,4 +114,12 @@ async function getBg(){
     bg="sprites/kitchen2.jpg"
     }
     backgroundImg=loadImage(bg);
+}
+function collide(s,m){
+    var mposition = m.body.position; 
+    var sposition = s.body.position;
+    var distance = dist(sposition.x , sposition.y , mposition.x , mposition.y);
+    if(distance <= m.radius+s.radius){
+       m.addImage(pizza);
+    }
 }
